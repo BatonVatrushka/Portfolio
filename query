@@ -1,0 +1,69 @@
+library(shiny)
+library(ggplot2)
+library(tidyverse)
+library(RPostgres)
+library(shinythemes)
+library(treemap)
+library(RColorBrewer)
+library(scales)
+library(maps)
+library(ggmap)
+
+
+#--------------------------------------------------------------------------------------
+# PULL THE DATA
+#--------------------------------------------------------------------------------------
+# set up the connection to the database
+db = '***********'
+host_db = '***********'
+db_port = '***********'
+db_user = '***********'
+db_password = '***********'
+
+con = dbConnect(Postgres()
+                , dbname = db
+                , host = host_db
+                , port = db_port
+                , user = db_user
+                , password = db_password)
+
+# now query the data 
+query = dbSendQuery(con,
+                    "select rr.id
+, bb.name as BotName 
+, rr.created
+, rr.updated
+, rr.sent
+
+from reports_report rr
+
+join bots_bot bb 
+
+on bb.id = rr.bot_id;")
+
+reports = dbFetch(query)
+reports = data.frame(reports)
+
+# second query for the maps
+query2 = dbSendQuery(con, 
+                    'select reports_report.id
+, reports_report.created
+, reports_report.updated
+, reports_report.sent
+, bots_bot.name
+, reports_addressreportfield.address_id
+, geo_address.latitude
+, geo_address.longitude
+from reports_report
+JOIN bots_bot 
+ON bots_bot.id = reports_report.bot_id
+JOIN reports_addressreportfield 
+ON reports_addressreportfield.reportfield_ptr_id = reports_report.id 
+JOIN geo_address
+ON geo_address.id = reports_addressreportfield.address_id;')
+
+# store the results in a variable 
+geo = dbFetch(query2) %>% data.frame()
+                 
+# close the connection
+dbDisconnect(con) 
