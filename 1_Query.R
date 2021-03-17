@@ -12,11 +12,11 @@ p_load(treemap)
 #--------------------------------------
 
 # set up the connection to the database
-db = 'd6v83aomegreaa'
-host_db = 'ec2-63-34-120-149.eu-west-1.compute.amazonaws.com'
-db_port = '5432'
-db_user = 'slzpkuaobdjykm'
-db_password = 'cc25193ef3aa1c071f2d0a63e770131ab47373fb290c2c5cd4615e7a12a5faa3'
+db = '**DB NAME**'
+host_db = '**ENTER HOST**'
+db_port = '****'
+db_user = '**USER NAME**'
+db_password = '**PASSWORD**'
 
 con = dbConnect(Postgres()
                 , dbname = db
