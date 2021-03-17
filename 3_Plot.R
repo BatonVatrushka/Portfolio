@@ -73,3 +73,5 @@ get_map(location = c(30.542721, 50.447731), zoom = 11, maptype = "toner"
 map('world', fill = T, col = 'white', bg = 'lightblue', ylim = c(-60, 90),
     mar = c(0,0,0,0))
 points(geo$longitude, geo$latitude, col = 'red', pch = 16, cex = .65)
+
+
