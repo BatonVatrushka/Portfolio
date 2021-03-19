@@ -4,3 +4,4 @@
 - The code for querying/obtaining the data was heavily influenced by IST 659 and IST 722
 - The code for cleaning/munging the data was heavily influenced by IST 707 and IST 736 (Thanks to Dr. Ami Gates)
 - The code for the visualizations and building the web application were heavily influenced by IST 719
+- The link to the shiny application is here: https://batonkyiv.shinyapps.io/anomaly_1/
